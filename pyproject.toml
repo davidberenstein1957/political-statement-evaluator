@@ -1,0 +1,66 @@
+[project]
+name = "whisper-diarization-sdk"
+version = "0.1.0"
+description = "SDK for Whisper Diarization - Automatic Speech Recognition with Speaker Diarization"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "openai-whisper>=20231117",
+    "faster-whisper>=1.1.0",
+    "torch>=2.0.0",
+    "torchaudio>=2.0.0",
+    "nemo-toolkit>=1.20.0",
+    "demucs>=4.0.0",
+    "ctc-forced-aligner>=1.0.0",
+    "librosa>=0.10.0",
+    "numpy>=1.21.0",
+    "scipy>=1.7.0",
+    "matplotlib>=3.5.0",
+    "soundfile>=0.12.0",
+    "pydub>=0.25.0",
+    "litellm>=1.75.4",
+    "pyannote-audio>=3.3.2",
+    "transformers>=4.55.0",
+    "ruff>=0.12.8",
+    "black>=25.1.0",
+    "jupyter>=1.1.1",
+    "ipython>=8.37.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["whisper_diarization_sdk"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "whisper_diarization_sdk/**/*.py",
+    "examples/**/*.py",
+    "tests/**/*.py",
+    "docs/**/*.md"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/MahmoudAshraf97/whisper-diarization"
+Repository = "https://github.com/MahmoudAshraf97/whisper-diarization"
+Issues = "https://github.com/MahmoudAshraf97/whisper-diarization/issues"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0"
+]
