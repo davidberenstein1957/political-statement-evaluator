@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional
 
 import litellm
 
-from .models import (
+from political_analysis_sdk.models import (
     AnalysisResult,
     BiasAnalysis,
     QuestionAnalysis,
@@ -17,7 +17,7 @@ from .models import (
     SentimentAnalysis,
     SentimentType,
 )
-from .prompts import PromptTemplates
+from political_analysis_sdk.prompts import PromptTemplates
 
 
 class PoliticalStatementAnalyzer:

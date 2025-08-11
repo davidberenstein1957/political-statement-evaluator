@@ -8,8 +8,8 @@ import json
 import sys
 from pathlib import Path
 
-from .config import Config
-from .core import PoliticalStatementAnalyzer
+from political_analysis_sdk.config import Config
+from political_analysis_sdk.core import PoliticalStatementAnalyzer
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -21,29 +21,29 @@ def create_parser() -> argparse.ArgumentParser:
 Examples:
   # Analyze a text file
   python -m political_analysis_sdk.cli analyze-file interview.txt
-  
+
   # Analyze text directly
   python -m political_analysis_sdk.cli analyze-text "Sample political text here"
-  
+
   # Use custom model and language
   python -m political_analysis_sdk.cli analyze-file interview.txt --model gpt-3.5-turbo --language English
-  
+
   # Output results to JSON file
   python -m political_analysis_sdk.cli analyze-file interview.txt --output results.json
         """
     )
-    
+
     # Create subparsers for different commands
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
-    
+
     # Analyze file command
     file_parser = subparsers.add_parser('analyze-file', help='Analyze a text file')
     file_parser.add_argument('file_path', help='Path to the text file to analyze')
-    
+
     # Analyze text command
     text_parser = subparsers.add_parser('analyze-text', help='Analyze text directly')
     text_parser.add_argument('text', help='Text content to analyze')
-    
+
     # Common options for both commands
     for subparser in [file_parser, text_parser]:
         subparser.add_argument(
@@ -73,11 +73,11 @@ Examples:
             action='store_true',
             help='Verbose output'
         )
-    
+
     # List supported models and languages
     subparsers.add_parser('list-models', help='List supported LLM models')
     subparsers.add_parser('list-languages', help='List supported languages')
-    
+
     return parser
 
 
@@ -88,7 +88,7 @@ def analyze_file(file_path: str, args: argparse.Namespace) -> dict:
         language=args.language,
         temperature=args.temperature
     )
-    
+
     result = analyzer.analyze_text_file(file_path)
     return result_to_dict(result)
 
@@ -100,7 +100,7 @@ def analyze_text(text: str, args: argparse.Namespace) -> dict:
         language=args.language,
         temperature=args.temperature
     )
-    
+
     result = analyzer.analyze_text(text)
     return result_to_dict(result)
 
@@ -175,40 +175,40 @@ def main():
     """Main CLI function."""
     parser = create_parser()
     args = parser.parse_args()
-    
+
     if not args.command:
         parser.print_help()
         return
-    
+
     try:
         if args.command == 'analyze-file':
             if not Path(args.file_path).exists():
                 print(f"Error: File not found: {args.file_path}")
                 sys.exit(1)
-            
+
             results = analyze_file(args.file_path, args)
             print_results(results, args)
-            
+
             if args.output:
                 save_results(results, args.output)
-        
+
         elif args.command == 'analyze-text':
             results = analyze_text(args.text, args)
             print_results(results, args)
-            
+
             if args.output:
                 save_results(results, args.output)
-        
+
         elif args.command == 'list-models':
             print("Supported LLM models:")
             for model in Config.get_supported_models():
                 print(f"  - {model}")
-        
+
         elif args.command == 'list-languages':
             print("Supported languages:")
             for language in Config.get_supported_languages():
                 print(f"  - {language}")
-    
+
     except KeyboardInterrupt:
         print("\nOperation cancelled by user.")
         sys.exit(1)
