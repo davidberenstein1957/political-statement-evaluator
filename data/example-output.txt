@@ -1,0 +1,241 @@
+Total questions found: 16
+Critical questions: 1
+Confirming questions: 1
+Biased adjectives found: 8
+Entities analyzed: 9
+
+==================================================
+DETAILED RESULTS:
+==================================================
+
+QUESTION ANALYSIS:
+1. Type: confirming
+   Question: Vindt u dat ook?
+   Context: Vraag naar de mening van de ander over politieke afpersing.
+   Reasoning: Het is een bevestigende vraag die vraagt om instemming.
+   Confidence: 0.95
+
+2. Type: neutral
+   Question: Wat zou Poetin anders hebben gedaan in zo'n gesprek?
+   Context: Vraag over de mogelijke acties van Poetin in een vergelijkbare situatie.
+   Reasoning: Het is een neutrale vraag die om een mening vraagt zonder een oordeel.
+   Confidence: 0.90
+
+3. Type: neutral
+   Question: Heb je het idee dat Zelensky de bui al ziet hangen?
+   Context: Vraag over de perceptie van Zelensky's situatie.
+   Reasoning: Het is een gewone vraag die om een persoonlijke indruk vraagt.
+   Confidence: 0.90
+
+4. Type: neutral
+   Question: Wat is er aan de hand in de wereld?
+   Context: Vraag van een man aan de spreker over de wereldsituatie.
+   Reasoning: Het is een neutrale vraag die om verduidelijking vraagt.
+   Confidence: 0.90
+
+5. Type: follow_up
+   Question: In welk opzicht dan?
+   Context: Vraag naar de specificiteit van de veranderingen in de wereld.
+   Reasoning: Het is een follow-up vraag die om verduidelijking vraagt.
+   Confidence: 0.95
+
+6. Type: neutral
+   Question: Maar wie dan wel?
+   Context: Vraag over wie de rol van leider in Europa zou kunnen vervullen.
+   Reasoning: Het is een neutrale vraag die vraagt om suggesties.
+   Confidence: 0.90
+
+7. Type: neutral
+   Question: Is het een breekpunt?
+   Context: Vraag over de steun voor Oekraïne en de politieke situatie.
+   Reasoning: Het is een neutrale vraag die vraagt naar de betekenis van een situatie.
+   Confidence: 0.90
+
+8. Type: neutral
+   Question: Wat vindt u van deze reactie?
+   Context: Vraag over de reactie van Wilders op Trump.
+   Reasoning: Het is een neutrale vraag die vraagt om een mening.
+   Confidence: 0.90
+
+9. Type: neutral
+   Question: Is dat voor u ongeveer het allerbelangrijkste... dat dit kabinet nu moet doen?
+   Context: Vraag over de belangrijkste taken van het kabinet.
+   Reasoning: Het is een neutrale vraag die vraagt naar prioriteiten.
+   Confidence: 0.90
+
+10. Type: neutral
+   Question: Wat is zo'n deal waard?
+   Context: Vraag over de waarde van een mogelijke deal.
+   Reasoning: Het is een neutrale vraag die vraagt naar de waarde van een overeenkomst.
+   Confidence: 0.90
+
+11. Type: neutral
+   Question: Is het politieke debat in Den Haag ook veranderd?
+   Context: Vraag over de impact van recente gebeurtenissen op het politieke debat.
+   Reasoning: Het is een neutrale vraag die vraagt naar veranderingen in het politieke debat.
+   Confidence: 0.90
+
+12. Type: neutral
+   Question: Wat ga je wel doen om een sterk Europa te krijgen?
+   Context: Vraag over de plannen voor een sterker Europa.
+   Reasoning: Het is een neutrale vraag die vraagt naar acties.
+   Confidence: 0.90
+
+13. Type: neutral
+   Question: Gaan we die straks inzetten?
+   Context: Vraag over de inzet van zonen in een conflict.
+   Reasoning: Het is een neutrale vraag die vraagt naar de inzet van mensen.
+   Confidence: 0.90
+
+14. Type: neutral
+   Question: Hoe groot is de kans dat wij het hier... in de loop van de week niet meer hebben over asiel?
+   Context: Vraag over de aandacht voor asiel in de politiek.
+   Reasoning: Het is een neutrale vraag die vraagt naar de kans op een verandering in focus.
+   Confidence: 0.90
+
+15. Type: neutral
+   Question: Moet er nog iets aan die wet veranderen?
+   Context: Vraag over de vreemdelingenwet.
+   Reasoning: Het is een neutrale vraag die vraagt naar mogelijke wijzigingen.
+   Confidence: 0.90
+
+16. Type: critical
+   Question: Zijn we voor niks aan het vechten?
+   Context: Vraag over de effectiviteit van de strijd in Oekraïne.
+   Reasoning: Het is een kritische vraag die de waarde van de inspanningen in twijfel trekt.
+   Confidence: 0.95
+
+BIAS ANALYSIS:
+1. Adjective: ondankbaar
+   Target: bondgenoot
+   Bias type: negatief
+   Context: Trump en JD Vance noemden hun bondgenoot ondankbaar en respectloos.
+   Reasoning: Het woord 'ondankbaar' drukt een sterk negatief oordeel uit over de bondgenoot, wat een vooroordeel impliceert.
+   Confidence: 0.95
+
+2. Adjective: zwakke
+   Target: man
+   Bias type: negatief
+   Context: Het verschil tussen een sterke leider en een zwakke man.
+   Reasoning: Het gebruik van 'zwakke' impliceert een negatieve beoordeling van de man in kwestie, wat een vooroordeel kan zijn.
+   Confidence: 0.95
+
+3. Adjective: geschifte
+   Target: lui
+   Bias type: negatief
+   Context: De Verenigde Staten worden geregeerd door totaal geschifte lui.
+   Reasoning: Het woord 'geschifte' heeft een pejoratieve connotatie en duidt op een negatieve beoordeling van de mensen.
+   Confidence: 0.95
+
+4. Adjective: agressor
+   Target: Zelensky
+   Bias type: negatief
+   Context: Hij wordt neergezet als de agressor, net zoals Poetin dat doet.
+   Reasoning: Het label 'agressor' is een sterke negatieve kwalificatie die een oordeel over de rol van Zelensky in de oorlog impliceert.
+   Confidence: 0.95
+
+5. Adjective: schokkend
+   Target: Trump
+   Bias type: negatief
+   Context: Ik vind het wel schokkend dat hij met die woorden smijt.
+   Reasoning: Het woord 'schokkend' geeft een sterke negatieve emotionele reactie weer op het gedrag van Trump.
+   Confidence: 0.95
+
+6. Adjective: wispelturig
+   Target: Trump
+   Bias type: negatief
+   Context: Hij is wispelturig.
+   Reasoning: Het woord 'wispelturig' impliceert onbetrouwbaarheid en een negatieve beoordeling van Trump.
+   Confidence: 0.95
+
+7. Adjective: ongelikte
+   Target: beer
+   Bias type: negatief
+   Context: Het is gewoon een ongelikte beer.
+   Reasoning: Het gebruik van 'ongelikte' is een pejoratieve beschrijving die een negatieve indruk van de persoon geeft.
+   Confidence: 0.95
+
+8. Adjective: gemankeerd
+   Target: kabinet
+   Bias type: negatief
+   Context: Wij komen met een gemankeerd kabinet.
+   Reasoning: Het woord 'gemankeerd' geeft een negatieve connotatie aan het kabinet, wat een oordeel over de effectiviteit ervan impliceert.
+   Confidence: 0.95
+
+SENTIMENT ANALYSIS:
+1. Entity: Dilan Yesilgöz
+   Type: person
+   Sentiment: neutral
+   Context: Vermelding in de context van een bijeenkomst.
+   Reasoning: Er wordt geen duidelijke positieve of negatieve uitspraak gedaan over Dilan Yesilgöz.
+   Confidence: 0.95
+   Supporting quotes: Dilan Yesilgöz, Hans Jaap Melissen, Lia van Bekhoven, Sjuul Paradijs... en Mats Akkerman op deze toch wel historische avond.
+
+2. Entity: Donald Trump
+   Type: person
+   Sentiment: negative
+   Context: Trump wordt beschreven als een zwakke leider en als iemand die niet in staat is tot constructieve gesprekken.
+   Reasoning: Er wordt negatief gesproken over Trump, met beschrijvingen van zijn gedrag en uitspraken.
+   Confidence: 0.95
+   Supporting quotes: Ik vond het er heel zwak uitzien van Trump., Trump is überhaupt niet in staat om een constructief gesprek aan te gaan.
+
+3. Entity: Volodimir Zelensky
+   Type: person
+   Sentiment: mixed
+   Context: Zelensky's rol in de ruzie met Trump en zijn positie als president van Oekraïne.
+   Reasoning: Zelensky wordt zowel positief als negatief besproken; hij wordt gesteund maar ook als zwak neergezet.
+   Confidence: 0.95
+   Supporting quotes: Zelensky wordt zondag natuurlijk volledig gesteund door Europa., Zelensky moest vertrekken.
+
+4. Entity: JD Vance
+   Type: person
+   Sentiment: negative
+   Context: Vance's rol in de ruzie en zijn uitspraken worden als respectloos ervaren.
+   Reasoning: Vance wordt negatief genoemd in de context van de ruzie met Trump en Zelensky.
+   Confidence: 0.95
+   Supporting quotes: Waarbij Trump en JD Vance hun bondgenoot ondankbaar en respectloos noemden.
+
+5. Entity: Emmanuel Macron
+   Type: person
+   Sentiment: positive
+   Context: Macron's rol als mogelijke nieuwe leider in Europa en zijn diplomatieke inspanningen.
+   Reasoning: Macron wordt positief genoemd in de context van zijn leiderschap en pogingen om de situatie te stabiliseren.
+   Confidence: 0.95
+   Supporting quotes: Dit is wat het is. Wij moeten zorgen dat we hier ons hoofd koel houden.
+
+6. Entity: Geert Wilders
+   Type: person
+   Sentiment: negative
+   Context: Wilders' opmerkingen worden als problematisch ervaren.
+   Reasoning: Wilders wordt negatief besproken in de context van zijn uitspraken over de oorlog en steun aan Oekraïne.
+   Confidence: 0.95
+   Supporting quotes: Als Wilders de kant van Trump kiest. Niet de beste manier om de oorlog te beëindigen, zegt Wilders.
+
+7. Entity: VVD
+   Type: party
+   Sentiment: negative
+   Context: De VVD's rol in de regering en hun beslissingen worden als onvoldoende ervaren.
+   Reasoning: De VVD wordt bekritiseerd voor hun houding ten opzichte van defensie en steun aan Oekraïne.
+   Confidence: 0.95
+   Supporting quotes: Maar de VVD kan de komende weken wat betreft het defensiebudget... ik zou zeggen: stop dat meteen in defensie.
+
+8. Entity: PvdA
+   Type: party
+   Sentiment: neutral
+   Context: De PvdA's rol in de politieke discussie over steun aan Oekraïne.
+   Reasoning: De PvdA wordt genoemd in de context van moties, maar er is geen sterke positieve of negatieve sentiment.
+   Confidence: 0.95
+   Supporting quotes: Met de PvdA, maar niet met de PVV.
+
+9. Entity: Poetin
+   Type: person
+   Sentiment: negative
+   Context: Poetin's invloed op de situatie in Oekraïne en zijn acties worden als negatief ervaren.
+   Reasoning: Poetin wordt negatief besproken in de context van zijn rol in de oorlog en als agressor.
+   Confidence: 0.95
+   Supporting quotes: Hij noemt Zelensky een dictator van wie de oorlog de schuld is.
+
+==================================================
+SUMMARY:
+==================================================
+In de analyse zijn in totaal 16 vragen onderzocht, waarvan 1 kritisch en 1 bevestigend is. Bij de bias-analyse zijn 8 bevooroordeelde bijvoeglijke naamwoorden gevonden. De sentimentanalyse omvatte 9 geanalyseerde entiteiten. De belangrijkste bevindingen wijzen op een beperkte variëteit in de vragen, met een enkele kritische en bevestigende vraag, en een significante aanwezigheid van bias in de gebruikte bijvoeglijke naamwoorden.

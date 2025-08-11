@@ -117,6 +117,7 @@ class PoliticalStatementAnalyzer:
         prompt = PromptTemplates.get_question_analysis_prompt(text, self.language)
 
         try:
+            self.logger.info(f"Sending question analysis prompt to {self.model_name}")
             response = litellm.completion(
                 model=self.model_name,
                 messages=[{"role": "user", "content": prompt}],
@@ -124,19 +125,35 @@ class PoliticalStatementAnalyzer:
             )
 
             content = response.choices[0].message.content.strip()
-            
+            self.logger.info(f"Received response from {self.model_name}, length: {len(content)}")
+
             # Check if content is empty
             if not content:
                 self.logger.warning("Empty response from LLM for question analysis")
                 return []
-            
+
             # Try to parse JSON, with fallback handling
             try:
                 data = json.loads(content)
+                self.logger.info("Successfully parsed JSON response for question analysis")
             except json.JSONDecodeError as json_error:
                 self.logger.error(f"Failed to parse JSON response for questions: {json_error}")
-                self.logger.error(f"Raw response content: {content}")
-                return []
+                self.logger.error(f"Raw response content: {repr(content)}")
+                # Try to extract JSON from the response if it's wrapped in other text
+                try:
+                    # Look for JSON-like content between curly braces
+                    start_idx = content.find('{')
+                    end_idx = content.rfind('}') + 1
+                    if start_idx != -1 and end_idx > start_idx:
+                        json_content = content[start_idx:end_idx]
+                        self.logger.info(f"Attempting to extract JSON: {repr(json_content)}")
+                        data = json.loads(json_content)
+                        self.logger.info("Successfully parsed extracted JSON")
+                    else:
+                        return []
+                except Exception as extract_error:
+                    self.logger.error(f"Failed to extract JSON: {extract_error}")
+                    return []
 
             questions = []
             for q_data in data.get('questions', []):
@@ -164,6 +181,7 @@ class PoliticalStatementAnalyzer:
         prompt = PromptTemplates.get_bias_analysis_prompt(text, self.language)
 
         try:
+            self.logger.info(f"Sending bias analysis prompt to {self.model_name}")
             response = litellm.completion(
                 model=self.model_name,
                 messages=[{"role": "user", "content": prompt}],
@@ -171,19 +189,35 @@ class PoliticalStatementAnalyzer:
             )
 
             content = response.choices[0].message.content.strip()
-            
+            self.logger.info(f"Received response from {self.model_name}, length: {len(content)}")
+
             # Check if content is empty
             if not content:
                 self.logger.warning("Empty response from LLM for bias analysis")
                 return []
-            
+
             # Try to parse JSON, with fallback handling
             try:
                 data = json.loads(content)
+                self.logger.info("Successfully parsed JSON response for bias analysis")
             except json.JSONDecodeError as json_error:
                 self.logger.error(f"Failed to parse JSON response for bias: {json_error}")
-                self.logger.error(f"Raw response content: {content}")
-                return []
+                self.logger.error(f"Raw response content: {repr(content)}")
+                # Try to extract JSON from the response if it's wrapped in other text
+                try:
+                    # Look for JSON-like content between curly braces
+                    start_idx = content.find('{')
+                    end_idx = content.rfind('}') + 1
+                    if start_idx != -1 and end_idx > start_idx:
+                        json_content = content[start_idx:end_idx]
+                        self.logger.info(f"Attempting to extract JSON: {repr(json_content)}")
+                        data = json.loads(json_content)
+                        self.logger.info("Successfully parsed extracted JSON")
+                    else:
+                        return []
+                except Exception as extract_error:
+                    self.logger.error(f"Failed to extract JSON: {extract_error}")
+                    return []
 
             biases = []
             for b_data in data.get('biased_adjectives', []):
@@ -212,20 +246,34 @@ class PoliticalStatementAnalyzer:
 
         try:
             self.logger.info(f"Sending sentiment analysis prompt to {self.model_name}")
-            response = litellm.completion(
-                model=self.model_name,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=self.temperature
-            )
+
+            # Check if we have a valid model configuration
+            if not self.model_name:
+                self.logger.error("No model name specified")
+                return []
+
+            try:
+                response = litellm.completion(
+                    model=self.model_name,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=self.temperature
+                )
+            except Exception as api_error:
+                self.logger.error(f"API error during sentiment analysis: {api_error}")
+                return []
+
+            if not response or not response.choices or not response.choices[0].message:
+                self.logger.error("Invalid response structure from LLM")
+                return []
 
             content = response.choices[0].message.content.strip()
             self.logger.info(f"Received response from {self.model_name}, length: {len(content)}")
-            
+
             # Check if content is empty
             if not content:
                 self.logger.warning("Empty response from LLM for sentiment analysis")
                 return []
-            
+
             # Try to parse JSON, with fallback handling
             try:
                 data = json.loads(content)
@@ -284,12 +332,12 @@ class PoliticalStatementAnalyzer:
             )
 
             content = response.choices[0].message.content.strip()
-            
+
             # Check if content is empty
             if not content:
                 self.logger.warning("Empty response from LLM for summary creation")
                 return "Kon geen samenvatting maken - lege reactie van het model."
-            
+
             return content
 
         except Exception as e:
