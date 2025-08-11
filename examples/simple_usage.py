@@ -10,12 +10,13 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from political_analysis_sdk import PoliticalStatementAnalyzer
+from political_analysis_sdk.utils import parse_srt_file
 
 
 def main():
     # Initialize the analyzer with local API server
     local_analyzer = PoliticalStatementAnalyzer(
-        model_name="ollama/gpt-oss:20b",  # Model name from your API
+        model_name="gpt-4o-mini",  # Model name from your API
         language="Dutch",
         temperature=0.1
 
@@ -25,23 +26,7 @@ def main():
     print(f"Base URL: {local_analyzer.base_url}")
 
     # Sample political text for analysis
-    sample_text = """
-    Interviewer: "Wat vindt u van de nieuwe belastingwetgeving?"
-
-    Politicus: "Ik vind het uitstekende wetgeving die veel goeds zal brengen voor onze samenleving."
-
-    Interviewer: "Maar wat als deze wetgeving negatieve gevolgen heeft voor kleine bedrijven?"
-
-    Politicus: "Dat is een goede vraag. Ik denk dat we daar zorgvuldig naar moeten kijken en eventuele problemen moeten oplossen."
-
-    Interviewer: "Kunt u dat concreter uitleggen?"
-
-    Politicus: "Natuurlijk, ik ben altijd bereid om dingen aan het publiek uit te leggen."
-
-    Interviewer: "Wat vindt u ervan dat de oppositie zegt dat deze wetgeving te streng is?"
-
-    Politicus: "De oppositie heeft altijd kritiek, maar ik denk dat onze aanpak de juiste is."
-    """
+    sample_text = parse_srt_file("data/cafe-kockelmann-cafe-kockelmann_21-2025-02-28.srt")
 
     print("\nAnalyzing political statement text...")
     print("=" * 50)
