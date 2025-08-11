@@ -21,7 +21,7 @@ class PromptTemplates:
         Tekst:
         {text}
 
-        Geef je antwoord in JSON formaat:
+        BELANGRIJK: Geef je antwoord ALLEEN in geldig JSON formaat, zonder extra tekst ervoor of erna.
         {{
             "questions": [
                 {{
@@ -32,7 +32,9 @@ class PromptTemplates:
                     "context": "context rond de vraag"
                 }}
             ]
-        }}"""
+        }}
+
+        Als er geen vragen zijn gevonden, geef dan: {{"questions": []}}"""
 
     @staticmethod
     def get_bias_analysis_prompt(text: str, language: str = "Dutch") -> str:
@@ -45,7 +47,7 @@ class PromptTemplates:
         Tekst:
         {text}
 
-        Geef je antwoord in JSON formaat:
+        BELANGRIJK: Geef je antwoord ALLEEN in geldig JSON formaat, zonder extra tekst ervoor of erna.
         {{
             "biased_adjectives": [
                 {{
@@ -57,7 +59,9 @@ class PromptTemplates:
                     "context": "context van gebruik"
                 }}
             ]
-        }}"""
+        }}
+
+        Als er geen biased bijvoeglijke naamwoorden zijn gevonden, geef dan: {{"biased_adjectives": []}}"""
 
     @staticmethod
     def get_sentiment_analysis_prompt(text: str, language: str = "Dutch") -> str:
@@ -69,7 +73,7 @@ class PromptTemplates:
         Tekst:
         {text}
 
-        Geef je antwoord in JSON formaat:
+        BELANGRIJK: Geef je antwoord ALLEEN in geldig JSON formaat, zonder extra tekst ervoor of erna.
         {{
             "entity_sentiments": [
                 {{
@@ -82,7 +86,9 @@ class PromptTemplates:
                     "supporting_quotes": ["quote 1", "quote 2"]
                 }}
             ]
-        }}"""
+        }}
+
+        Als er geen entiteiten zijn gevonden, geef dan: {{"entity_sentiments": []}}"""
 
     @staticmethod
     def get_summary_prompt(analysis_results: Dict[str, Any], language: str = "Dutch") -> str:

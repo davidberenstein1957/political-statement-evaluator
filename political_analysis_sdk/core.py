@@ -123,19 +123,35 @@ class PoliticalStatementAnalyzer:
                 temperature=self.temperature
             )
 
-            content = response.choices[0].message.content
-            data = json.loads(content)
+            content = response.choices[0].message.content.strip()
+            
+            # Check if content is empty
+            if not content:
+                self.logger.warning("Empty response from LLM for question analysis")
+                return []
+            
+            # Try to parse JSON, with fallback handling
+            try:
+                data = json.loads(content)
+            except json.JSONDecodeError as json_error:
+                self.logger.error(f"Failed to parse JSON response for questions: {json_error}")
+                self.logger.error(f"Raw response content: {content}")
+                return []
 
             questions = []
             for q_data in data.get('questions', []):
-                question_type = QuestionType(q_data.get('type', 'neutral'))
-                questions.append(QuestionAnalysis(
-                    question_text=q_data.get('question', ''),
-                    question_type=question_type,
-                    confidence=q_data.get('confidence', 0.0),
-                    reasoning=q_data.get('reasoning', ''),
-                    context=q_data.get('context', '')
-                ))
+                try:
+                    question_type = QuestionType(q_data.get('type', 'neutral'))
+                    questions.append(QuestionAnalysis(
+                        question_text=q_data.get('question', ''),
+                        question_type=question_type,
+                        confidence=q_data.get('confidence', 0.0),
+                        reasoning=q_data.get('reasoning', ''),
+                        context=q_data.get('context', '')
+                    ))
+                except Exception as e:
+                    self.logger.warning(f"Error processing question data: {e}")
+                    continue
 
             return questions
 
@@ -154,19 +170,35 @@ class PoliticalStatementAnalyzer:
                 temperature=self.temperature
             )
 
-            content = response.choices[0].message.content
-            data = json.loads(content)
+            content = response.choices[0].message.content.strip()
+            
+            # Check if content is empty
+            if not content:
+                self.logger.warning("Empty response from LLM for bias analysis")
+                return []
+            
+            # Try to parse JSON, with fallback handling
+            try:
+                data = json.loads(content)
+            except json.JSONDecodeError as json_error:
+                self.logger.error(f"Failed to parse JSON response for bias: {json_error}")
+                self.logger.error(f"Raw response content: {content}")
+                return []
 
             biases = []
             for b_data in data.get('biased_adjectives', []):
-                biases.append(BiasAnalysis(
-                    adjective=b_data.get('adjective', ''),
-                    target_person=b_data.get('target_person', ''),
-                    bias_type=b_data.get('bias_type', ''),
-                    confidence=b_data.get('confidence', 0.0),
-                    reasoning=b_data.get('reasoning', ''),
-                    context=b_data.get('context', '')
-                ))
+                try:
+                    biases.append(BiasAnalysis(
+                        adjective=b_data.get('adjective', ''),
+                        target_person=b_data.get('target_person', ''),
+                        bias_type=b_data.get('bias_type', ''),
+                        confidence=b_data.get('confidence', 0.0),
+                        reasoning=b_data.get('reasoning', ''),
+                        context=b_data.get('context', '')
+                    ))
+                except Exception as e:
+                    self.logger.warning(f"Error processing bias data: {e}")
+                    continue
 
             return biases
 
@@ -185,21 +217,37 @@ class PoliticalStatementAnalyzer:
                 temperature=self.temperature
             )
 
-            content = response.choices[0].message.content
-            data = json.loads(content)
+            content = response.choices[0].message.content.strip()
+            
+            # Check if content is empty
+            if not content:
+                self.logger.warning("Empty response from LLM for sentiment analysis")
+                return []
+            
+            # Try to parse JSON, with fallback handling
+            try:
+                data = json.loads(content)
+            except json.JSONDecodeError as json_error:
+                self.logger.error(f"Failed to parse JSON response for sentiment: {json_error}")
+                self.logger.error(f"Raw response content: {content}")
+                return []
 
             sentiments = []
             for s_data in data.get('entity_sentiments', []):
-                sentiment = SentimentType(s_data.get('sentiment', 'neutral'))
-                sentiments.append(SentimentAnalysis(
-                    entity_name=s_data.get('entity_name', ''),
-                    entity_type=s_data.get('entity_type', ''),
-                    sentiment=sentiment,
-                    confidence=s_data.get('confidence', 0.0),
-                    reasoning=s_data.get('reasoning', ''),
-                    context=s_data.get('context', ''),
-                    supporting_quotes=s_data.get('supporting_quotes', [])
-                ))
+                try:
+                    sentiment = SentimentType(s_data.get('sentiment', 'neutral'))
+                    sentiments.append(SentimentAnalysis(
+                        entity_name=s_data.get('entity_name', ''),
+                        entity_type=s_data.get('entity_type', ''),
+                        sentiment=sentiment,
+                        confidence=s_data.get('confidence', 0.0),
+                        reasoning=s_data.get('reasoning', ''),
+                        context=s_data.get('context', ''),
+                        supporting_quotes=s_data.get('supporting_quotes', [])
+                    ))
+                except Exception as e:
+                    self.logger.warning(f"Error processing sentiment data: {e}")
+                    continue
 
             return sentiments
 
@@ -218,7 +266,14 @@ class PoliticalStatementAnalyzer:
                 temperature=self.temperature
             )
 
-            return response.choices[0].message.content
+            content = response.choices[0].message.content.strip()
+            
+            # Check if content is empty
+            if not content:
+                self.logger.warning("Empty response from LLM for summary creation")
+                return "Kon geen samenvatting maken - lege reactie van het model."
+            
+            return content
 
         except Exception as e:
             self.logger.error(f"Error creating summary: {e}")
@@ -236,32 +291,52 @@ class PoliticalStatementAnalyzer:
         """
         self.logger.info("Analyzing provided text content")
 
-        # Perform all analyses
-        question_analysis = self._analyze_questions(text)
-        bias_analysis = self._analyze_bias(text)
-        sentiment_analysis = self._analyze_sentiment(text)
+        try:
+            # Perform all analyses
+            question_analysis = self._analyze_questions(text)
+            bias_analysis = self._analyze_bias(text)
+            sentiment_analysis = self._analyze_sentiment(text)
 
-        # Create summary
-        summary = self._create_summary({
-            'total_questions': len(question_analysis),
-            'critical_questions': len([q for q in question_analysis if q.question_type == QuestionType.CRITICAL]),
-            'confirming_questions': len([q for q in question_analysis if q.question_type == QuestionType.CONFIRMING]),
-            'biased_adjectives': bias_analysis,
-            'entity_sentiments': sentiment_analysis
-        })
+            # Create summary
+            summary = self._create_summary({
+                'total_questions': len(question_analysis),
+                'critical_questions': len([q for q in question_analysis if q.question_type == QuestionType.CRITICAL]),
+                'confirming_questions': len([q for q in question_analysis if q.question_type == QuestionType.CONFIRMING]),
+                'biased_adjectives': bias_analysis,
+                'entity_sentiments': sentiment_analysis
+            })
 
-        return AnalysisResult(
-            text_file_path="direct_text_input",
-            total_questions=len(question_analysis),
-            critical_questions=len([q for q in question_analysis if q.question_type == QuestionType.CRITICAL]),
-            confirming_questions=len([q for q in question_analysis if q.question_type == QuestionType.CONFIRMING]),
-            biased_adjectives=bias_analysis,
-            entity_sentiments=sentiment_analysis,
-            question_analysis=question_analysis,
-            summary=summary,
-            metadata={
-                'model_used': self.model_name,
-                'language': self.language,
-                'temperature': self.temperature
-            }
-        )
+            return AnalysisResult(
+                text_file_path="direct_text_input",
+                total_questions=len(question_analysis),
+                critical_questions=len([q for q in question_analysis if q.question_type == QuestionType.CRITICAL]),
+                confirming_questions=len([q for q in question_analysis if q.question_type == QuestionType.CONFIRMING]),
+                biased_adjectives=bias_analysis,
+                entity_sentiments=sentiment_analysis,
+                question_analysis=question_analysis,
+                summary=summary,
+                metadata={
+                    'model_used': self.model_name,
+                    'language': self.language,
+                    'temperature': self.temperature
+                }
+            )
+        except Exception as e:
+            self.logger.error(f"Error in analyze_text: {e}")
+            # Return a minimal result with error information
+            return AnalysisResult(
+                text_file_path="direct_text_input",
+                total_questions=0,
+                critical_questions=0,
+                confirming_questions=0,
+                biased_adjectives=[],
+                entity_sentiments=[],
+                question_analysis=[],
+                summary=f"Fout tijdens analyse: {str(e)}",
+                metadata={
+                    'model_used': self.model_name,
+                    'language': self.language,
+                    'temperature': self.temperature,
+                    'error': str(e)
+                }
+            )
