@@ -211,6 +211,7 @@ class PoliticalStatementAnalyzer:
         prompt = PromptTemplates.get_sentiment_analysis_prompt(text, self.language)
 
         try:
+            self.logger.info(f"Sending sentiment analysis prompt to {self.model_name}")
             response = litellm.completion(
                 model=self.model_name,
                 messages=[{"role": "user", "content": prompt}],
@@ -218,6 +219,7 @@ class PoliticalStatementAnalyzer:
             )
 
             content = response.choices[0].message.content.strip()
+            self.logger.info(f"Received response from {self.model_name}, length: {len(content)}")
             
             # Check if content is empty
             if not content:
@@ -227,10 +229,25 @@ class PoliticalStatementAnalyzer:
             # Try to parse JSON, with fallback handling
             try:
                 data = json.loads(content)
+                self.logger.info("Successfully parsed JSON response for sentiment analysis")
             except json.JSONDecodeError as json_error:
                 self.logger.error(f"Failed to parse JSON response for sentiment: {json_error}")
-                self.logger.error(f"Raw response content: {content}")
-                return []
+                self.logger.error(f"Raw response content: {repr(content)}")
+                # Try to extract JSON from the response if it's wrapped in other text
+                try:
+                    # Look for JSON-like content between curly braces
+                    start_idx = content.find('{')
+                    end_idx = content.rfind('}') + 1
+                    if start_idx != -1 and end_idx > start_idx:
+                        json_content = content[start_idx:end_idx]
+                        self.logger.info(f"Attempting to extract JSON: {repr(json_content)}")
+                        data = json.loads(json_content)
+                        self.logger.info("Successfully parsed extracted JSON")
+                    else:
+                        return []
+                except Exception as extract_error:
+                    self.logger.error(f"Failed to extract JSON: {extract_error}")
+                    return []
 
             sentiments = []
             for s_data in data.get('entity_sentiments', []):
